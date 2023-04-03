@@ -1,0 +1,109 @@
+<app-header></app-header>
+
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <h3 class="font-weight-bolder text-dark display5">
+
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap py-3">
+                    <div class="card-toolbar">
+                        <h2>
+                            <span *ngIf="!loading">Manage Designations</span>
+                            <span *ngIf="loading">Loading..</span>
+                        </h2>
+                    </div>
+                    <button (click)="switchAction()" class="btn btn-info font-weight-bolder card--button">
+                        <span *ngIf="activeTab == 1">Add Designation</span>
+                        <span *ngIf="activeTab == 2">List Designation</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="activeTab == 1">
+                        <table class="table table-bordered table-checkable">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let designation of designations; let i = index;">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{designation.title}}
+                                    </td>
+                                    <td>
+                                        <button (click)="editAction(designation)" type="button"
+                                            class="btn btn-success btn-sm">
+                                            View
+                                        </button>
+                                        &nbsp;&nbsp;
+                                        <button (click)="deleteAction(designation)" type="button"
+                                            class="btn btn-danger btn-sm">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <form class="form" [formGroup]="userForm" (submit)="submit()" *ngIf="activeTab == 2">
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Title <span
+                                    class="required">*</span></label>
+                            <input class="form-control" type="text" formControlName="title" name="formControlName" />
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.title.touched && userForm.controls.title.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div *ngIf="userForm.controls.title.dirty && userForm.controls.title.errors">Invalid
+                                        Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Description</label>
+                            <textarea class="form-control" type="text" formControlName="description"
+                                name="description"></textarea>
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.description.touched && userForm.controls.description.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div
+                                        *ngIf="userForm.controls.description.dirty && userForm.controls.description.errors">
+                                        Invalid
+                                        description
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-lg-0 pb-5">
+                            <button type="submit" class="btn btn-primary font-weight-bolder" [disabled]="loading">
+                                Submit <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

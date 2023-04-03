@@ -1,0 +1,10 @@
+.card--button {
+    float: right;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.qr--container {
+    margin-bottom : 20px;
+    text-align: center;
+}

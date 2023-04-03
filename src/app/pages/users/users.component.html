@@ -1,0 +1,213 @@
+<app-header></app-header>
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <h3 class="font-weight-bolder text-dark display5">
+
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap py-3">
+                    <div class="card-toolbar">
+                        <h2>
+                            <span *ngIf="!loading">Manage Staff</span>
+                            <span *ngIf="loading">Loading..</span>
+                        </h2>
+                    </div>
+                    <button (click)="switchAction()" class="btn btn-info font-weight-bolder card--button">
+                        <span *ngIf="activeTab == 1">Add Staff</span>
+                        <span *ngIf="activeTab == 2">List Staff</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive" *ngIf="activeTab == 1">
+                        <table class="table table-bordered table-checkable">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users; let i = index;">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{user.name}}
+                                    </td>
+                                    <td>
+                                        {{user.email}}
+                                    </td>
+                                    <td>
+                                        <button (click)="editAction(user)" type="button" class="btn btn-success btn-sm">
+                                            View
+                                        </button>
+                                        &nbsp;&nbsp;
+                                        <a routerLink="/settings/{{user._id}}"
+                                            class="btn btn-info btn-sm">
+                                            Change Password
+                                    </a>
+                                        <!-- &nbsp;&nbsp;
+                                        <button (click)="deleteAction(user)" type="button"
+                                            class="btn btn-danger btn-sm">
+                                            Delete
+                                        </button> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <form class="form" [formGroup]="userForm" (submit)="submit()" *ngIf="activeTab == 2">
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Name <span
+                                    class="required">*</span></label>
+                            <input class="form-control" type="text" formControlName="name" name="name" />
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.name.touched && userForm.controls.name.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div *ngIf="userForm.controls.name.dirty && userForm.controls.name.errors">Invalid
+                                        Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Email <span
+                                    class="required">*</span></label>
+                            <input class="form-control" type="text" formControlName="email" name="email" />
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.email.touched && userForm.controls.email.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div *ngIf="userForm.controls.email.dirty && userForm.controls.email.errors">Invalid
+                                        Email
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between mt-n5">
+                                <label class="font-size-h6 font-weight-bolder text-dark pt-5">Phone</label>
+                            </div>
+                            <input class="form-control" type="phone" formControlName="phone" name="phone" />
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.phone.touched && userForm.controls.phone.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div *ngIf="userForm.controls.phone.dirty && userForm.controls.phone.errors">
+                                        Invalid Phone
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Gender</label>
+                            <select class="form-control" type="text" formControlName="gender" name="gender">
+                                <option>Female</option>
+                                <option>Male</option>
+                                <option>Other</option>
+                            </select>
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.gender.touched && userForm.controls.gender.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div
+                                        *ngIf="userForm.controls.designation_id.dirty && userForm.controls.designation_id.errors">
+                                        Invalid
+                                        Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" [hidden]="user_id">
+                            <div class="d-flex justify-content-between mt-n5">
+                                <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
+                            </div>
+                            <input class="form-control" type="password" formControlName="password" name="password" />
+                            <div class="fv-plugins-message-container">
+                                <code *ngIf="user_id">Leave empty if don't want to update.</code>
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.password.touched && userForm.controls.password.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div *ngIf="userForm.controls.password.dirty && userForm.controls.password.errors">
+                                        Password atleast 6 words</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Designation</label>
+                            <select class="form-control" type="text" formControlName="designation_id"
+                                name="designation_id">
+                                <option></option>
+                                <option *ngFor="let designation of designations" [value]="designation._id">
+                                    {{designation.title}}</option>
+                            </select>
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.designation_id.touched && userForm.controls.designation_id.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div
+                                        *ngIf="userForm.controls.designation_id.dirty && userForm.controls.designation_id.errors">
+                                        Invalid
+                                        Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-size-h6 font-weight-bolder text-dark">Role <span
+                                    class="required">*</span></label>
+                            <select class="form-control" type="text" formControlName="role_id" name="role_id">
+                                <option></option>
+                                <option *ngFor="let role of roles" [value]="role.id">
+                                    {{role.title}} (<small>{{role.description}}</small>)
+                                </option>
+                            </select>
+                            <div class="fv-plugins-message-container">
+                                <div data-field="fname" class="fv-help-block">
+                                    <div
+                                        *ngIf="userForm.controls.role_id.touched && userForm.controls.role_id.hasError('required')">
+                                        Required
+                                    </div>
+                                    <div *ngIf="userForm.controls.role_id.dirty && userForm.controls.role_id.errors">
+                                        Invalid
+                                        Name
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-lg-0 pb-5">
+                            <button type="submit" class="btn btn-primary font-weight-bolder" [disabled]="loading">
+                                Submit <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class=" container">
+
+        <div class="center1">
+
+          <div class="d-flex flex-column flex-root ">
+            <div class="login login-3 wizard d-flex flex-column flex-lg-row flex-column-fluid">
+              <div class="login-content flex-row-fluid d-flex flex-column p-10">
+                <div class="text-right d-flex justify-content-center">
+                </div>
+                <div class="d-flex flex-row-fluid flex-center">
+                  <div class="login-form">
+                    <form class="form" id="kt_login_singin_form" [formGroup]="userForm" (submit)="submit()">
+                      <div class="pb-5 pb-lg-15">
+                       <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
+                        <div class="text-muted font-weight-bold font-size-h4">
+                          New Here?
+                          <a routerLink="/register" class="text-primary font-weight-bolder">Create Account</a>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="font-size-h6 font-weight-bolder text-dark">Email <span class="required">*</span></label>
+                        <input class="textboxbg form-control h-auto py-7 px-6 rounded-lg border-0" type="text" formControlName="email"
+                          name="email" />
+                        <div class="fv-plugins-message-container">
+                          <div data-field="fname" class="fv-help-block">
+                            <div *ngIf="userForm.controls.email.touched && userForm.controls.email.hasError('required')">Required
+                            </div>
+                            <div *ngIf="userForm.controls.email.dirty && userForm.controls.email.errors">Invalid
+                              Email
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="d-flex justify-content-between mt-n5">
+                          <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password <span class="required">*</span></label>
+                        </div>
+                        <input class="textboxbg form-control h-auto py-7 px-6 rounded-lg border-0" type="password"
+                          formControlName="password" name="password" />
+                        <div class="fv-plugins-message-container">
+                          <div data-field="fname" class="fv-help-block">
+                            <div *ngIf="userForm.controls.password.touched && userForm.controls.password.hasError('required')">
+                              Required
+                            </div>
+                            <div *ngIf="userForm.controls.password.dirty && userForm.controls.password.errors">
+                              Password atleast 6 words</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="pb-lg-0 pb-5">
+                        <button type="submit" id="kt_login_singin_form_submit_button" on
+                          class="btn btn-primary font-weight-bolder font-size-h6 px-8 py-4 my-3 mr-3" [disabled]="loading">
+                          Sign In <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+                        </button> 
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>  
+
+</div>

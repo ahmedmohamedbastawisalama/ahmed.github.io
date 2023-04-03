@@ -1,0 +1,128 @@
+<div class="header flex-column header-fixed">
+  <div class="header-top">
+    <div class="container">
+      <div class="d-none d-lg-flex align-items-center mr-3">
+        <a routerLink="/dashboard" class="mr-20">
+          <img
+            alt="Logo"
+            src="assets/media/logos/logo.png"
+            class="max-h-35px"
+          />
+        </a>
+      </div>
+      <div class="topbar">
+        <div class="topbar-item" (click)="profile_dialog = 1">
+          <div
+            class="btn btn-icon btn-hover-transparent-white w-auto d-flex align-items-center btn-lg px-2"
+          >
+            <div class="d-flex flex-column text-right pr-3">
+              <span
+                class="text-white font-weight-bolder font-size-sm d-none d-md-inline"
+                >{{ auth.user.name }}</span
+              >
+            </div>
+            <span class="symbol symbol-35">
+              <span
+                class="symbol-label font-size-h5 font-weight-bold text-white bg-white-o-30"
+                >U</span
+              >
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-bottom">
+    <div class="container">
+      <div class="header-menu-wrapper header-menu-wrapper-left">
+        <div
+          class="header-menu header-menu-left header-menu-mobile header-menu-layout-default"
+        >
+          <ul class="menu-nav">
+            <li
+              class="active menu-item menu-item-submenu menu-item-rel"
+              data-menu-toggle="hover"
+              aria-haspopup="true"
+
+              *ngIf="auth.jwtDetails().role_id == 1"
+            >
+              <a class="menu-link" routerLink="/dashboard"
+                ><span class="menu-text"> Dashboard </span
+                ><i class="menu-arrow"></i
+              ></a>
+            </li>
+            <li
+              class="menu-item menu-item-submenu menu-item-rel"
+              data-menu-toggle="hover"
+              aria-haspopup="true"
+            >
+              <a class="menu-link" routerLink="/user/attendances"
+                ><span class="menu-text"> My Attendance </span
+                ><i class="menu-arrow"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="offcanvas offcanvas-right p-10 offcanvas-on" *ngIf="profile_dialog">
+  <div
+    class="offcanvas-header d-flex align-items-center justify-content-between pb-5"
+    kt-hidden-height="40"
+  >
+    <h3 class="font-weight-bold m-0">User Profile</h3>
+    <a
+      class="btn btn-xs btn-icon btn-light btn-hover-primary"
+      (click)="profile_dialog = 0"
+    >
+      <i class="ki ki-close icon-xs text-muted"></i>
+    </a>
+  </div>
+  <div
+    class="offcanvas-content pr-5 mr-n5 scroll ps ps--active-y"
+    style="height: 191px; overflow: hidden"
+  >
+    <div class="d-flex align-items-center mt-5">
+      <div class="symbol symbol-100 mr-5"></div>
+    </div>
+    <div class="navi navi-spacer-x-0 p-0">
+      <a href="javascript:;" class="navi-item">
+        <div class="navi-link">
+          <div
+            class="navi-text"
+            routerLink="/profile"
+            (click)="profile_dialog = 0"
+          >
+            <div class="font-weight-bold">
+              {{ auth.user.name }}
+            </div>
+            <div class="text-muted">
+              {{ auth.user.email }}
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href="javascript:;" class="navi-item">
+        <div class="navi-link">
+          <div
+            class="navi-text"
+            routerLink="/settings"
+            (click)="profile_dialog = 0"
+          >
+            <div class="font-weight-bold">Change Password</div>
+            <div class="text-muted"></div>
+          </div>
+        </div>
+      </a>
+      <a
+        routerLink="/logout"
+        class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5"
+      >
+        Sign Out
+      </a>
+    </div>
+    <div class="separator separator-dashed my-7"></div>
+  </div>
+</div>

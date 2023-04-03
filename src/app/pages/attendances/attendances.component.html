@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+        <div class="container d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <h3 class="font-weight-bolder text-dark display5">
+
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-column-fluid">
+        <div class="container">
+            <div class="card card-custom gutter-b">
+                <div class="card-header flex-wrap py-3">
+                    <div class="card-toolbar">
+                        <h2>
+                            <span *ngIf="!loading">
+                                Manage Attendances
+                                - {{selectedDate | date}}
+                            </span>
+
+                            <span *ngIf="loading">Loading..</span>
+                        </h2>
+                    </div>
+                    <input type="date" (change)="filter($event)" />
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-checkable">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let visit of visits; let i = index;">
+                                    <td>
+                                        {{i+1}}
+                                    </td>
+                                    <td>
+                                        {{visit.users[0].name }}
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-info btn-sm" (click)="goMap(visit)">View map</button>
+                                    </td>
+                                    <td>
+                                        {{visit.createdAt | date:'medium'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
